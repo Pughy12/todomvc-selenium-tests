@@ -38,18 +38,29 @@ public class BaseTest {
         //System.setProperty("webdriver.gecko.driver", "src/main/resources/drivers/geckodriver");
     }
 
+    /**
+     * Set up method, run before each test method. Starts the browser and navigates to the starting url.
+     */
     @Before
     public void setUp() {
         this.driver = new ChromeDriver();
         this.driver.get("http://todomvc.com/examples/angularjs/#/");
     }
 
+    /**
+     * Tear down method, runs after each test method. Closes the browser
+     */
     @After
     public void tearDown() {
         this.driver.close();
         this.driver.quit();
     }
 
+    /**
+     * Get the driver to be used in tests to pass through to page objects
+     *
+     * @return The instance of the driver
+     */
     public WebDriver driver() {
         return driver;
     }
