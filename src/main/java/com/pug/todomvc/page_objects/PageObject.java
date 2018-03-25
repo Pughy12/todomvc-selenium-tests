@@ -19,6 +19,10 @@ class PageObject {
     private WebDriver driver;
 
     PageObject(WebDriver driver) {
+        if (driver == null) {
+            throw new IllegalStateException("WebDriver shouldn't be null but it is");
+        }
+
         this.driver = driver;
         PageFactory.initElements(driver, this);
     }

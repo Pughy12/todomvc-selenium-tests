@@ -26,16 +26,7 @@ public class BaseTest {
 
     // Initialise system properties for driver locations
     static {
-
-        // Detect the platform. Just for this I'm going to assume either Mac or Windows
-        if (System.getProperty("os.name").contains("OS X")) {
-            System.setProperty(CHROMEDRIVER_PROPERTY_NAME, DRIVER_FOLDER + "chromedriver-mac");
-        } else {
-            System.setProperty(CHROMEDRIVER_PROPERTY_NAME, DRIVER_FOLDER + "chromedriver.exe");
-        }
-
-        // I'm not gonna use firefox, but I'll leave this here so I remember that I tried but geckodriver is buggy
-        //System.setProperty("webdriver.gecko.driver", "src/main/resources/drivers/geckodriver");
+        System.setProperty(CHROMEDRIVER_PROPERTY_NAME, DRIVER_FOLDER + "chromedriver");
     }
 
     /**
@@ -52,7 +43,6 @@ public class BaseTest {
      */
     @AfterMethod
     public void tearDown() {
-        System.out.println("tearDown method called");
         this.driver.close();
         this.driver.quit();
         this.driver = null;

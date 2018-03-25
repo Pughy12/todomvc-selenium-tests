@@ -17,7 +17,8 @@ import java.util.List;
  * This could definitely be broken into multiple classes. Possibly separating out the individual items for the app
  * such as the list items, the filters, and more as separate classes. This would be it easier to do things like:
  *
- * boolean isItemCompleted = getListItem(listItemText).isCompleted();
+ * final ListItem item = getListItem(listItemText)
+ * boolean itemIsCompleted = item.isCompleted();
  *
  * Currently that's not possible, unless you break this class into multiple page objects
  */
@@ -35,15 +36,14 @@ public class TodoList extends PageObject {
     @FindBy(css = "ul#filters li a[href*='#/completed']")
     private WebElement filterByCompletedLink;
 
+    private WebDriverWait wait;
+
     public TodoList(WebDriver driver) {
         super(driver);
+        wait = new WebDriverWait(driver, 5);
 
-        // Sleep for a second because this is a webapp and the HTML takes a bit to load in properly
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        // Wait for the DOM to be fully initialised because this is a webapp and the HTML takes a while to load
+        wait.until(ExpectedConditions.elementToBeClickable(newTodoInput));
     }
 
     public void addItem(String text) {
@@ -68,7 +68,6 @@ public class TodoList extends PageObject {
 
         for (WebElement listItem : getItemsInList()) {
             if (getItemName(listItem).equals(text)) {
-                WebDriverWait wait = new WebDriverWait(driver(), 3);
 
                 // Hover over the list item so it displays the delete button
                 Actions actions = new Actions(driver());
