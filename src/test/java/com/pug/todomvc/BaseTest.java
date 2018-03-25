@@ -1,9 +1,9 @@
 package com.pug.todomvc;
 
-import org.junit.After;
-import org.junit.Before;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 
 /**
  * A base class which test classes can extend to get things needed to run tests
@@ -41,7 +41,7 @@ public class BaseTest {
     /**
      * Set up method, run before each test method. Starts the browser and navigates to the starting url.
      */
-    @Before
+    @BeforeMethod
     public void setUp() {
         this.driver = new ChromeDriver();
         this.driver.get("http://todomvc.com/examples/angularjs/#/");
@@ -50,10 +50,12 @@ public class BaseTest {
     /**
      * Tear down method, runs after each test method. Closes the browser
      */
-    @After
+    @AfterMethod
     public void tearDown() {
+        System.out.println("tearDown method called");
         this.driver.close();
         this.driver.quit();
+        this.driver = null;
     }
 
     /**
@@ -61,7 +63,7 @@ public class BaseTest {
      *
      * @return The instance of the driver
      */
-    public WebDriver driver() {
+    WebDriver driver() {
         return driver;
     }
 }

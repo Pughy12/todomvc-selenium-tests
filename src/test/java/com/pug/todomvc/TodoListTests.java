@@ -1,8 +1,8 @@
 package com.pug.todomvc;
 
-import com.pug.todomvc.page.TodoList;
-import org.junit.Assert;
-import org.junit.Test;
+import com.pug.todomvc.page_objects.TodoList;
+import org.testng.Assert;
+import org.testng.annotations.Test;
 
 /**
  * A suite of functional tests for the to-do mvc angular app
